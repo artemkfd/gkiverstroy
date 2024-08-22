@@ -1,0 +1,8 @@
+/env
+.env
+**/__pycache__/
+local.py
+celerybeat-schedule
+log.log
+/media/
+/venv/
