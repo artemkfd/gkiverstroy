@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-gray-100">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <div class="flex  justify-center items-center min-h-screen bg-gray-100">
+        <div class="bg-white mx-6 p-6 rounded-lg shadow-lg max-w-md w-full">
             <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="200" class="text-2xl font-bold mb-4">Связаться с нами легко!</h2>
             <p data-aos="fade-left" data-aos-once="true"  data-aos-delay="350" class="mb-6">Оставьте свои данные, и мы перезвоним вам в течение 15 минут для обсуждения вашего проекта!</p>
 
