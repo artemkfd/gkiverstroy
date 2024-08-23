@@ -188,7 +188,7 @@
             "image-wrapper rounded-sm w-[300px] h-[200px] animate-[scroll_65s_ease-in_infinite] ": isScrolling,
             "image-wrapper rounded-sm snap-center   w-[300px] h-[200px] ": !isScrolling
           }'>
-            <img :src="`img/portfolio/${i}.jpeg`" :alt="`Project ${i}`"
+            <img :src="`img/portfolio/${i}.webp`" :alt="`Project ${i}`"
               class="hover:w-auto hover:h-auto hover:cursor-pointer">
           </div>
 
@@ -196,7 +196,7 @@
             "image-wrapper rounded-sm w-[300px] h-[200px] md:animate-[scroll_65s_ease-in_infinite] ": isScrolling,
             "image-wrapper rounded-sm snap-center w-[300px] h-[200px] ": !isScrolling
           }'>
-            <img :src="`img/portfolio/${i}.jpeg`" :alt="`Project ${i}`"
+            <img :src="`img/portfolio/${i}.webp`" :alt="`Project ${i}`"
               class="hover:w-auto hover:h-auto hover:cursor-pointer" @click="">
           </div>
         </div>
@@ -205,7 +205,7 @@
           <!-- Генерация изображений -->
           <div v-for="i in 25" :key="i"
             class=" image-wrapper rounded-md w-[300px] h-[200px] md:hover:w-auto md:hover:h-auto duration-700 hover:cursor-pointer">
-            <img :src="`img/portfolio/${i}.jpeg`" :alt="`Project ${i}`"
+            <img :src="`img/portfolio/${i}.webp`" :alt="`Project ${i}`"
               class="rounded-sm hover:w-auto hover:h-auto transition-all duration-700 ">
           </div>
         </div>
