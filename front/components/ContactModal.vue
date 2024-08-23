@@ -9,10 +9,10 @@
         <p class="mb-4">Адрес: ул. Примерная, 1, Москва, Россия</p>
         <div>
           <a href="https://t.me/yourusername" target="_blank">
-            <img src="https://img.icons8.com/color/48/000000/telegram-app.png" class="inline-block w-10 h-10 mx-2 hover:scale-110 duration-200" alt="Telegram">
+            <img src="~assets/img/telegram-app.webp" class="inline-block w-10 h-10 mx-2 hover:scale-110 duration-200" alt="Telegram">
           </a>
           <a href="https://wa.me/71234567890" target="_blank">
-            <img src="https://img.icons8.com/color/48/000000/whatsapp.png" class="inline-block w-10 h-10 mx-2 hover:scale-110 duration-200" alt="WhatsApp">
+            <img src="~assets/img/whatsapp.webp" class="inline-block w-10 h-10 mx-2 hover:scale-110 duration-200" alt="WhatsApp">
           </a>
         </div>
       </div>
