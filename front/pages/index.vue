@@ -1,11 +1,11 @@
 <template>
-  <div class="overflow-hidden">
+  <div class="overflow-hidden ">
     <!-- Hero section -->
-    <section id="hero" class="w-full lg:h-[100vh] pb-6">
+    <section id="hero" class="w-full lg:h-[100vh] xl:h-[100%] pb-6 xl:pb-12" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
 
       <div class="container mx-auto px-6 ">
         <div class="pt-8  text-center sm:text-left sm:grid sm:grid-cols-6">
-          <div class="col-span-3">
+          <div class="lg:mt-8 col-span-3">
             <span data-aos="fade-right" data-aos-once="true" data-aos-delay="150"
               class="z-10 relative text-base text-gradient font-semibold uppercase">попробуйте онлайн калькулятор</span>
             <h1 data-aos="fade-right" data-aos-once="true"
@@ -13,7 +13,7 @@
               Идеальная <span data-aos="fade-up" data-aos-once="true" data-aos-delay="250"
                 class="text-header-gradient">лазерная резка</span> для вашего бизнеса!
             </h1>
-            <div class="sm:hidden z-0 relative scale-120 mt-8 overflow-hidden opacity-90">
+            <div class="sm:hidden z-30 relative scale-120 mt-8 overflow-hidden opacity-90">
               <div class="w-full ">
                 <img data-aos="fade-up" data-aos-once="true" src="~/assets/img/steel_3d.webp" class="-mt-4 " alt="" />
               </div>
@@ -24,7 +24,8 @@
             </p>
 
           </div>
-          <div class="hidden sm:block rounded-full z-0 relative scale-120 mt-8 overflow-hidden opacity-90 col-span-3">
+          <div
+            class="hidden sm:block rounded-full z-30 relative scale-120 sm:mt-32 lg:mt-20 mt-8 overflow-hidden opacity-90 col-span-3">
             <div class="w-full ">
               <img data-aos="fade-up" data-aos-once="true" src="~/assets/img/steel_3d.webp" class="-mt-4 " alt="" />
             </div>
@@ -32,6 +33,12 @@
           </div>
 
 
+        </div>
+        <div>
+          <p class="hidden sm:block">sm</p>
+          <p class="hidden md:block">md</p>
+          <p class="hidden lg:block">lg</p>
+          <p class="hidden xl:block">xl</p>
         </div>
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="700" class="text-center mt-8 md:mt-20">
           <p data-aos="fade-down" data-aos-once="true" data-aos-delay="350" class="mt-8 ">Выберите удобный способ
@@ -65,14 +72,14 @@
             </polyline>
           </svg>
         </div>
-        <div data-aos="fade-up" data-aos-delay="550" class=" hidden sm:block absolute bottom-22 left-64 w-6">
+        <!-- <div data-aos="fade-up" data-aos-delay="550" class=" hidden sm:block absolute bottom-22 left-64 w-6">
 
           <svg width="60" height="60" class="animate-arrows-h ">
             <polyline points="30,40 30,0 60,30 0,20 60,0"
               style="fill:none;stroke:rgba(250, 175, 176, 0.71);stroke-width:2">
             </polyline>
           </svg>
-        </div>
+        </div> -->
         <div data-aos="fade-up" data-aos-delay="200"
           class="hidden sm:block absolute bottom-2 xl:bottom-26 left-[0%] xl:left-2 w-6">
           <svg width="80" height="80" class="animate-arrows-left">
@@ -87,7 +94,7 @@
     </section>
 
     <!-- Calculator -->
-    <section id="calculator" class="mt-8 container mx-auto  ">
+    <section id="calculator" class="mt-8 container mx-auto" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200"
         class="text-center text-[2.5rem] sm:text-5xl xl:text-6xl font-bold leading-tight  sm:pr-8 xl:pr-10">
         Рассчитайте свою выгоду!
@@ -159,7 +166,8 @@
           </div>
 
           <div class="relative h-[100%]">
-            <div data-aos="fade-left" data-aos-delay="200" class="sticky top-1 col-span-2 mt-8 px-4 text-center self-center">
+            <div data-aos="fade-left" data-aos-delay="200"
+              class="sticky top-1 col-span-2 mt-8 px-4 text-center self-center">
               <p>стоимость производства будет</p>
               <p class="p-4 text-5xl font-bold">{{ resultPrice }} ₽</p>
               <p>Ориентировочный срок выполнения будет</p>
@@ -174,7 +182,7 @@
 
     </section>
     <!-- Visual elements -->
-    <section id="gallery" class="mt-8  px-4 overflow-hidden">
+    <section id="gallery" class="mt-8  px-4 overflow-hidden" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto snap-x">
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200"
           class="text-center text-[2.0rem] leading-tight">
@@ -225,7 +233,7 @@
       </div>
     </section>
 
-    <section class="py-12 px-6 text-center">
+    <section class="py-12 px-6 text-center" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="200" class="text-3xl font-bold mb-4">
         Почему выбирают нас?
       </h2>
@@ -313,7 +321,7 @@
       </div>
 
     </section>
-    <section class="py-12 bg-gray-100">
+    <section class="py-12 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Отзывы наших клиентов</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
@@ -357,7 +365,7 @@
         </div>
       </div>
     </section>
-    <section class="flex flex-col items-center justify-center px-8 bg-gray-100">
+    <section class="flex flex-col items-center justify-center px-8 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="300"
         class="text-2xl font-semibold  mb-4 text-gray-800">Готовы начать?</h2>
       <p data-aos="fade-right" data-aos-delay="300" class="mb-6 text-gray-800">
@@ -370,8 +378,8 @@
         </button>
       </div>
     </section>
-    <ContactForm />
-    <section class="md:flex gap2">
+    <ContactForm :class="{'blur-md': isGalleryModalOpen || isModalOpen}" />
+    <section class="md:flex gap2" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="my-8 p-6 mx-4 bg-gray-100 rounded-lg shadow-lg">
         <h3 class="text-lg font-semibold  text-gray-800">Интересно узнать больше?</h3>
         <p class="mt-2 text-gray-800">
@@ -390,7 +398,7 @@
       </div>
     </section>
     <!-- FAQ section -->
-    <section class="flex flex-col items-center justify-center px-8 py-8 bg-gray-100">
+    <section class="flex flex-col items-center justify-center px-8 py-8 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="300"
         class="text-2xl font-semibold  mb-4 text-gray-800">Частые вопросы</h2>
       <div v-for="f in faq" :key="f.id">
@@ -431,7 +439,7 @@
       </div>
 
     </section>
-    <footer class="relative  bg-neutral-600 p-6 pt-32">
+    <footer class="relative  bg-neutral-600 p-6 pt-32" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto">
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="700" class="text-center ">
           <p data-aos="fade-down" data-aos-once="true" data-aos-delay="350" class="text-neutral-100 ">Выберите удобный
