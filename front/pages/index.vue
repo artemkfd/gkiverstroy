@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-hidden ">
     <!-- Hero section -->
-    <section id="hero" class="w-full lg:h-[100vh] xl:h-[100%] pb-6 xl:pb-12" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section id="hero" class="w-full lg:h-[100vh] xl:h-[100%] pb-6 xl:pb-12 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
 
       <div class="container mx-auto px-6 ">
         <div class="pt-8  text-center sm:text-left sm:grid sm:grid-cols-6">
@@ -94,7 +94,7 @@
     </section>
 
     <!-- Calculator -->
-    <section id="calculator" class="mt-8 container mx-auto" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section id="calculator" class="mt-8 container mx-auto duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200"
         class="text-center text-[2.5rem] sm:text-5xl xl:text-6xl font-bold leading-tight  sm:pr-8 xl:pr-10">
         Рассчитайте свою выгоду!
@@ -182,7 +182,7 @@
 
     </section>
     <!-- Visual elements -->
-    <section id="gallery" class="mt-8  px-4 overflow-hidden" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section id="gallery" class="mt-8  px-4 overflow-hidden duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto snap-x">
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200"
           class="text-center text-[2.0rem] leading-tight">
@@ -233,7 +233,7 @@
       </div>
     </section>
 
-    <section class="py-12 px-6 text-center" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section class="py-12 px-6 text-center duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="200" class="text-3xl font-bold mb-4">
         Почему выбирают нас?
       </h2>
@@ -321,7 +321,7 @@
       </div>
 
     </section>
-    <section class="py-12 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section class="py-12 bg-gray-100 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Отзывы наших клиентов</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
@@ -365,7 +365,7 @@
         </div>
       </div>
     </section>
-    <section class="flex flex-col items-center justify-center px-8 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section class="flex flex-col items-center justify-center px-8 bg-gray-100 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="300"
         class="text-2xl font-semibold  mb-4 text-gray-800">Готовы начать?</h2>
       <p data-aos="fade-right" data-aos-delay="300" class="mb-6 text-gray-800">
@@ -378,8 +378,8 @@
         </button>
       </div>
     </section>
-    <ContactForm :class="{'blur-md': isGalleryModalOpen || isModalOpen}" />
-    <section class="md:flex gap2" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <ContactForm class="duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}" />
+    <section class="md:flex gap2 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="my-8 p-6 mx-4 bg-gray-100 rounded-lg shadow-lg">
         <h3 class="text-lg font-semibold  text-gray-800">Интересно узнать больше?</h3>
         <p class="mt-2 text-gray-800">
@@ -398,7 +398,7 @@
       </div>
     </section>
     <!-- FAQ section -->
-    <section class="flex flex-col items-center justify-center px-8 py-8 bg-gray-100" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <section class="flex flex-col items-center justify-center px-8 py-8 bg-gray-100 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="300"
         class="text-2xl font-semibold  mb-4 text-gray-800">Частые вопросы</h2>
       <div v-for="f in faq" :key="f.id">
@@ -439,7 +439,7 @@
       </div>
 
     </section>
-    <footer class="relative  bg-neutral-600 p-6 pt-32" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <footer class="relative  bg-neutral-600 p-6 pt-32 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <div class="container mx-auto">
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="700" class="text-center ">
           <p data-aos="fade-down" data-aos-once="true" data-aos-delay="350" class="text-neutral-100 ">Выберите удобный
