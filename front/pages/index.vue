@@ -34,12 +34,12 @@
 
 
         </div>
-        <div>
+        <!-- <div>
           <p class="hidden sm:block">sm</p>
           <p class="hidden md:block">md</p>
           <p class="hidden lg:block">lg</p>
           <p class="hidden xl:block">xl</p>
-        </div>
+        </div> -->
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="700" class="text-center mt-8 md:mt-20">
           <p data-aos="fade-down" data-aos-once="true" data-aos-delay="350" class="mt-8 ">Выберите удобный способ
             связи с нами и получите советы по вашему проекту!</p>
