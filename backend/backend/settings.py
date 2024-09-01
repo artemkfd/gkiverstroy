@@ -154,3 +154,30 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+
+# Путь к директории статических файлов
+STATIC_URL = '/static/'
+
+# Путь к директории, куда будут собираться статические файлы (например, в директории backend)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN'),
+TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
