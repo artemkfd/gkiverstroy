@@ -10,7 +10,7 @@ class ClientOut(Schema):
     phone: Optional[str] = None
     email: Optional[str] = None
     comment: Optional[str] = None
-    addres: Optional[str] = None
+    address: Optional[str] = None
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 

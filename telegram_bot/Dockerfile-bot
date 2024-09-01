@@ -1,0 +1,17 @@
+# Dockerfile-bot
+FROM python:3.10-slim
+
+# Установка рабочей директории
+WORKDIR /telegram_bot
+
+# Копируем файл зависимостей
+COPY requirements.txt .
+
+# Устанавливаем зависимости
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем остальные файлы
+COPY . .
+
+# Запускаем бот
+CMD ["python", "bot.py"]

@@ -1,42 +1,101 @@
+
 version: '3'
 name: gkiverstroy
 
 services:
+  reverse-proxy:
+    image: traefik:v2.5
+    command:
+      - "--api.insecure=true"  # Включите доступ к интерфейсу управления Traefik
+      - "--providers.docker=true"  # Используем Docker в качестве провайдера
+      - "--entrypoints.web.address=:80"  # HTTP
+      - "--entrypoints.websecure.address=:443"  # HTTPS (не будет использоваться в локальном тестировании)
+      - "--certificatesresolvers.myletsencrypt.acme.tlschallenge=true"  # Для Let’s Encrypt
+      - "--certificatesresolvers.myletsencrypt.acme.email=artemkfd@gmail.com"  # Ваша почта
+      - "--certificatesresolvers.myletsencrypt.acme.storage=/acme.json"  # Хранение сертификатов
+    ports:
+      - "80:80"  # Прокси для HTTP
+      - "443:443"  # Прокси для HTTPS (не будет использоваться)
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"  # Доступ к Docker API
+      - "./acme.json:/acme.json"  # Для хранения сертификатов
+    networks:
+      - web
+
   nuxt:
     build:
       context: ./front
       dockerfile: Dockerfile-front
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"  # Использование Traefik для Nuxt
+      # Для тестирования на локальном компьютере, используйте Localtunnel
+      # - "traefik.http.routers.nuxt.rule=Host(`localhost`)"  # Локальный тест
+      # Перед отправкой на продакшн измените на:
+      - "traefik.http.routers.nuxt.rule=Host(`gkiverstroy.ru`)"  # Продакшн
+      - "traefik.http.routers.nuxt.entrypoints=web"  # Доступно только по HTTP
+      - "traefik.http.services.nuxt.loadbalancer.server.port=3000"  # Порт приложения Nuxt
+    restart: unless-stopped  # Перезапускать при сбоях
+    networks:
+      - web
 
   django:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    # command: ["wait-for-it", "db:5432", "--", "sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-    ports:
-      - "8000:8000"
+    labels:
+      - "traefik.enable=true"  # Включаем Traefik
+      # Для тестирования на локальном компьютере, используйте Localtunnel
+      # - "traefik.http.routers.django.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"  # Локальный тест
+      # Перед отправкой на продакшн измените на:
+      - "traefik.http.routers.django.rule=Host(`gkiverstroy.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      - "traefik.http.routers.django.entrypoints=web"  # Доступно только по HTTP
+      - "traefik.http.services.django.loadbalancer.server.port=8000"  # Порт приложения Django
     environment:
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgres://gkiverstroy:gkiverstroy@db/db_gkiverstroy
+      - DATABASE_URL=postgres://gkiverstroy:gkiverstroy@db/db_gkiverstroy  # Измените на свои данные БД
     depends_on:
       - db
     restart: on-failure
+    networks:
+      - web
+
+  telegram-bot:
+    build:
+      context: ./telegram_bot
+      dockerfile: Dockerfile-bot  # Используйте тот же Dockerfile для бота
+      labels:
+      - "traefik.enable=true"
+      # Для тестирования на локальном компьютере, используйте Localtunnel
+      # - "traefik.http.routers.telegram-bot.rule=Host(`tired-birds-juggle.loca.lt`) && PathPrefix(`/webhook`)"  # Локальный тест
+      # Перед отправкой на продакшн измените на:
+      - "traefik.http.routers.telegram-bot.rule=Host(`gkiverstroy.ru`) && PathPrefix(`/webhook`)"
+      - "traefik.http.services.telegram-bot.loadbalancer.server.port=5000"  # Порт, на котором работает Flask
+    environment:
+      - TELEGRAM_BOT_TOKEN=  # Измените на токен вашего бота
+      - TELEGRAM_CHAT_ID=  # Измените на ваш чат ID
+    restart: unless-stopped
+    depends_on:
+      - django
+    networks:
+      - web
 
   db:
     image: postgres:16.4-alpine3.20
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=db_gkiverstroy
-      - POSTGRES_USER=gkiverstroy
-      - POSTGRES_PASSWORD=gkiverstroy
+      - POSTGRES_DB=db_gkiverstroy  # Измените на имя вашей БД
+      - POSTGRES_USER=gkiverstroy  # Измените на имя пользователя БД
+      - POSTGRES_PASSWORD=gkiverstroy  # Измените на пароль пользователя БД
       - LANG=en_US.UTF-8
       - LC_ALL=en_US.UTF-8
     ports:
       - "5432:5432"
+    networks:
+      - web
 
 volumes:
   postgres_data:
+
+networks:
+  web:
