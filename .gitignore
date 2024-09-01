@@ -6,3 +6,18 @@ celerybeat-schedule
 log.log
 /media/
 /venv/
+
+# Venv
+env/
+venv/
+env_back/
+
+# Переходы от PyCharm
+.idea/
+
+# Переходы от VSCode
+.vscode/
+
+# Местные настройки Python
+*.pyc
+__pycache__/
