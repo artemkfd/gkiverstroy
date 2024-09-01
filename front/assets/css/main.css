@@ -25,3 +25,23 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+/* Для Chrome, Safari и Edge */
+body::-webkit-scrollbar {
+  height: 10px; /* Высота ползунка для горизонтальной прокрутки */
+}
+
+body::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Цвет трека */
+  border-radius: 10px; /* Закругление трека */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888; /* Цвет ползунка */
+  border-radius: 10px; /* Закругление ползунка */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Цвет ползунка при наведении */
+}

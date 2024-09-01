@@ -1,9 +1,42 @@
-version: '3.8'
+version: '3'
+name: gkiverstroy
 
 services:
   nuxt:
-    build: .
+    build:
+      context: ./front
+      dockerfile: Dockerfile-front
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+
+  django:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # command: ["wait-for-it", "db:5432", "--", "sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgres://gkiverstroy:gkiverstroy@db/db_gkiverstroy
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    image: postgres:16.4-alpine3.20
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=db_gkiverstroy
+      - POSTGRES_USER=gkiverstroy
+      - POSTGRES_PASSWORD=gkiverstroy
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

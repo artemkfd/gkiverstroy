@@ -183,7 +183,7 @@
     </section>
     <!-- Visual elements -->
     <section id="gallery" class="mt-8  px-4 overflow-hidden duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
-      <div class="container mx-auto snap-x">
+      <div class="container mx-auto snap-x ">
         <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200"
           class="text-center text-[2.0rem] leading-tight">
           <h3 class="pt-8 text-3xl xl:text-5xl font-bold mb-4 text-neutral-800">Убедитесь сами в нашем качестве!</h3>
@@ -197,10 +197,10 @@
 
 
         <div data-aos="fade-left" data-aos-once="true" data-aos-delay="200" v-if="shortList"
-          class="relative mx-auto grid grid-flow-col auto-cols-max overflow-x-scroll  align-center mb-4 snap-mandatory snap-x  ">
+          class="relative mx-auto grid grid-flow-col auto-cols-max overflow-x-scroll  align-center mb-4 snap-mandatory snap-x  rounded-xl">
           <div v-for="item in photo_array" :key="item.id" :class='{
             "image-wrapper rounded-sm w-[300px] h-[200px] animate-[scroll_95s_ease-in_infinite] ": isScrolling,
-            "image-wrapper rounded-sm snap-center   w-[300px] h-[200px] ": !isScrolling
+            "image-wrapper rounded-sm snap-center   w-[300px] h-[200px]": !isScrolling
           }'>
             <img @click="showGallery(item)" :src="`img/portfolio/${item.name}.webp`" :alt="`Project ${item.name}`"
               class="hover:w-auto hover:h-auto hover:cursor-pointer">
@@ -240,7 +240,7 @@
       <div data-aos="fade-left" data-aos-delay="200" class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
 
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <path fill="currentColor"
               d="M12,11A1,1 0 0,1 13,12A1,1 0 0,1 12,13A1,1 0 0,1 11,12A1,1 0 0,1 12,11M4.22,4.22C5.65,2.79 8.75,3.43 12,5.56C15.25,3.43 18.35,2.79 19.78,4.22C21.21,5.65 20.57,8.75 18.44,12C20.57,15.25 21.21,18.35 19.78,19.78C18.35,21.21 15.25,20.57 12,18.44C8.75,20.57 5.65,21.21 4.22,19.78C2.79,18.35 3.43,15.25 5.56,12C3.43,8.75 2.79,5.65 4.22,4.22M15.54,8.46C16.15,9.08 16.71,9.71 17.23,10.34C18.61,8.21 19.11,6.38 18.36,5.64C17.62,4.89 15.79,5.39 13.66,6.77C14.29,7.29 14.92,7.85 15.54,8.46M8.46,15.54C7.85,14.92 7.29,14.29 6.77,13.66C5.39,15.79 4.89,17.62 5.64,18.36C6.38,19.11 8.21,18.61 10.34,17.23C9.71,16.71 9.08,16.15 8.46,15.54M5.64,5.64C4.89,6.38 5.39,8.21 6.77,10.34C7.29,9.71 7.85,9.08 8.46,8.46C9.08,7.85 9.71,7.29 10.34,6.77C8.21,5.39 6.38,4.89 5.64,5.64M9.88,14.12C10.58,14.82 11.3,15.46 12,16.03C12.7,15.46 13.42,14.82 14.12,14.12C14.82,13.42 15.46,12.7 16.03,12C15.46,11.3 14.82,10.58 14.12,9.88C13.42,9.18 12.7,8.54 12,7.97C11.3,8.54 10.58,9.18 9.88,9.88C9.18,10.58 8.54,11.3 7.97,12C8.54,12.7 9.18,13.42 9.88,14.12M18.36,18.36C19.11,17.62 18.61,15.79 17.23,13.66C16.71,14.29 16.15,14.92 15.54,15.54C14.92,16.15 14.29,16.71 13.66,17.23C15.79,18.61 17.62,19.11 18.36,18.36Z" />
           </svg>
@@ -252,7 +252,7 @@
         </div>
         <div data-aos="fade-right" data-aos-delay="250"
           class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <title>shape-outline</title>
             <path fill="currentColor"
               d="M11,13.5V21.5H3V13.5H11M9,15.5H5V19.5H9V15.5M12,2L17.5,11H6.5L12,2M12,5.86L10.08,9H13.92L12,5.86M17.5,13C20,13 22,15 22,17.5C22,20 20,22 17.5,22C15,22 13,20 13,17.5C13,15 15,13 17.5,13M17.5,15A2.5,2.5 0 0,0 15,17.5A2.5,2.5 0 0,0 17.5,20A2.5,2.5 0 0,0 20,17.5A2.5,2.5 0 0,0 17.5,15Z" />
@@ -266,7 +266,7 @@
         </div>
         <div data-aos="fade-left" data-aos-delay="200"
           class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <title>speedometer</title>
             <path fill="currentColor"
               d="M12,16A3,3 0 0,1 9,13C9,11.88 9.61,10.9 10.5,10.39L20.21,4.77L14.68,14.35C14.18,15.33 13.17,16 12,16M12,3C13.81,3 15.5,3.5 16.97,4.32L14.87,5.53C14,5.19 13,5 12,5A8,8 0 0,0 4,13C4,15.21 4.89,17.21 6.34,18.65H6.35C6.74,19.04 6.74,19.67 6.35,20.06C5.96,20.45 5.32,20.45 4.93,20.07V20.07C3.12,18.26 2,15.76 2,13A10,10 0 0,1 12,3M22,13C22,15.76 20.88,18.26 19.07,20.07V20.07C18.68,20.45 18.05,20.45 17.66,20.06C17.27,19.67 17.27,19.04 17.66,18.65V18.65C19.11,17.2 20,15.21 20,13C20,12 19.81,11 19.46,10.1L20.67,8C21.5,9.5 22,11.18 22,13Z" />
@@ -280,7 +280,7 @@
 
         <div data-aos="fade-right" data-aos-delay="200"
           class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <title>account</title>
             <path fill="currentColor"
               d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
@@ -294,7 +294,7 @@
         <div data-aos="fade-left" data-aos-delay="200"
           class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
 
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <title>wrench</title>
             <path fill="currentColor"
               d="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z" />
@@ -308,7 +308,7 @@
         <div data-aos="fade-up" data-aos-delay="300"
           class=" bg-white shadow-md hover:shadow-xl duration-300 p-4 rounded-lg grid grid-cols-6">
 
-          <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 h-10 w-10 self-center" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 h-10 w-10 self-center" viewBox="0 0 24 24">
             <title>face-agent</title>
             <path fill="currentColor"
               d="M18.72,14.76C19.07,13.91 19.26,13 19.26,12C19.26,11.28 19.15,10.59 18.96,9.95C18.31,10.1 17.63,10.18 16.92,10.18C13.86,10.18 11.15,8.67 9.5,6.34C8.61,8.5 6.91,10.26 4.77,11.22C4.73,11.47 4.73,11.74 4.73,12A7.27,7.27 0 0,0 12,19.27C13.05,19.27 14.06,19.04 14.97,18.63C15.54,19.72 15.8,20.26 15.78,20.26C14.14,20.81 12.87,21.08 12,21.08C9.58,21.08 7.27,20.13 5.57,18.42C4.53,17.38 3.76,16.11 3.33,14.73H2V10.18H3.09C3.93,6.04 7.6,2.92 12,2.92C14.4,2.92 16.71,3.87 18.42,5.58C19.69,6.84 20.54,8.45 20.89,10.18H22V14.67H22V14.69L22,14.73H21.94L18.38,18L13.08,17.4V15.73H17.91L18.72,14.76M9.27,11.77C9.57,11.77 9.86,11.89 10.07,12.11C10.28,12.32 10.4,12.61 10.4,12.91C10.4,13.21 10.28,13.5 10.07,13.71C9.86,13.92 9.57,14.04 9.27,14.04C8.64,14.04 8.13,13.54 8.13,12.91C8.13,12.28 8.64,11.77 9.27,11.77M14.72,11.77C15.35,11.77 15.85,12.28 15.85,12.91C15.85,13.54 15.35,14.04 14.72,14.04C14.09,14.04 13.58,13.54 13.58,12.91A1.14,1.14 0 0,1 14.72,11.77Z" />
@@ -321,51 +321,10 @@
       </div>
 
     </section>
-    <section class="py-12 bg-gray-100 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Отзывы наших клиентов</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          <div data-aos="fade-right" data-aos-delay="200"
-            class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl duration-300">
-            <p class="font-semibold">Алексей П.</p>
-            <p class="text-yellow-500">⭐️⭐️⭐️⭐️⭐️</p>
-            <p class="mt-2">"Отличное качество резки! Заказывал детали для своего проекта, и они были выполнены точно по
-              размерам. Очень доволен!"</p>
-          </div>
-          <div data-aos="fade-up" data-aos-delay="250"
-            class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl duration-300">
-            <p class="font-semibold">Мария И.</p>
-            <p class="text-yellow-500">⭐️⭐️⭐️⭐️⭐️</p>
-            <p class="mt-2">"Сервис на высшем уровне! Быстрая доставка и внимательное отношение к клиентам. Рекомендую
-              всем!"</p>
-          </div>
-          <div data-aos="fade-left" data-aos-delay="300"
-            class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl duration-300">
-            <p class="font-semibold">Дмитрий К.</p>
-            <p class="text-yellow-500">⭐️⭐️⭐️⭐️</p>
-            <p class="mt-2">"Лазерная резка сделана аккуратно, но сроки выполнения немного затянулись. В целом,
-              результат оправдал ожидания!"</p>
-          </div>
-          <div v-show="showComments" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl duration-300">
-            <p class="font-semibold">Ольга С.</p>
-            <p class="text-yellow-500">⭐️⭐️⭐️⭐️⭐️</p>
-            <p class="mt-2">"Потрясающее качество! Работаете быстро и профессионально. Теперь я ваш постоянный клиент!"
-            </p>
-          </div>
-          <div v-show="showComments" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl duration-300">
-            <p class="font-semibold">Игорь Н.</p>
-            <p class="text-yellow-500">⭐️⭐️⭐️⭐️⭐️</p>
-            <p class="mt-2">"Заказывал индивидуальные заготовки для своего хобби. Все детали сделаны идеально. Спасибо
-              за вашу работу!"</p>
-          </div>
-        </div>
-        <div class="text-center mt-8 text-gray-400 hover:text-gray-600">
-          <button v-if="showComments" @click="showComments = !showComments">Скрыть</button>
-          <button v-else @click="showComments = !showComments">Посмотреть ещё</button>
-        </div>
-      </div>
-    </section>
-    <section class="flex flex-col items-center justify-center px-8 bg-gray-100 duration-300" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
+    <!-- Comments section -->
+    <CommentsBlock />
+
+    <section class="flex flex-col items-center justify-center px-8 bg-gray-100 duration-300 mt-8 pt-8" :class="{'blur-md': isGalleryModalOpen || isModalOpen}">
       <h2 data-aos="fade-up" data-aos-once="true" data-aos-delay="300"
         class="text-2xl font-semibold  mb-4 text-gray-800">Готовы начать?</h2>
       <p data-aos="fade-right" data-aos-delay="300" class="mb-6 text-gray-800">
@@ -492,7 +451,6 @@ const material = ref('steel')
 const material_thickness = ref(1)
 const installationCount = ref(0)
 const сuttingLength = ref(1);
-const showComments = ref(false)
 const isScrolling = ref(true)
 const isModalOpen = ref(false);
 const isGalleryModalOpen = ref(false);
@@ -502,9 +460,6 @@ const photoNext = ref();
 
 const openModal = () => {
   isModalOpen.value = true;
-};
-const openGalleryModal = () => {
-  isGalleryModalOpen.value = true;
 };
 
 const closeModal = () => {
@@ -527,10 +482,6 @@ const filtred_material_thickness_data = computed(() => {
 
 })
 const shortList = ref(true)
-
-const imagesCount = 4; // Начальное количество изображений
-const imageArrayLength = ref(4);
-const imageArray = computed(() => Array.from({ length: imageArrayLength.value }, (_, i) => i + 1));
 
 const photo_array = ref(
   [
@@ -717,13 +668,10 @@ function openNextPhoto(photoName) {
 
 }
 function showGallery(item) {
-  console.log('showGallery :>> ');
-  console.log('item :>> ', item);
   photoItem.value = item.name
   photoNext.value = 0
   photoUndo.value = 0
   if (item.id < photo_array.value.length) {
-    console.log('item.id + 1 :>> ', item.id + 1);
     const photoItem = photo_array.value.find(photo => photo.id == item.id + 1)
     photoNext.value = photoItem.name
 

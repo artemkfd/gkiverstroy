@@ -5,13 +5,13 @@ FROM node:22-alpine3.19
 WORKDIR /front
 
 # Копируем package.json и package-lock.json из корня проекта
-COPY ./front/package*.json ./
+COPY package*.json ./
 
 # Устанавливаем зависимости
 RUN npm install
 
 # Копируем все остальные файлы проекта
-COPY ./front ./
+COPY . .
 
 # Собираем проект
 RUN npm run build

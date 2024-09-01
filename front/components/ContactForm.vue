@@ -34,9 +34,11 @@ const formData = ref({
     email: '',
 });
 
-const handleSubmit = () => {
+const  handleSubmit = () => {
     // Здесь можно добавить логику для отправки данных формы
     console.log('Форма отправлена:', formData.value);
+
+    postData();
 
     // Очистка формы после отправки
     formData.value = {
@@ -45,6 +47,31 @@ const handleSubmit = () => {
         email: '',
     };
 };
+
+async function postData() {
+    const url = `http://127.0.0.1:8000`;
+    try {
+        const { data, error } = await useFetch(`${url}/api/clients`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Connection': 'keep-alive',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Accept': '*/*',
+                'Host': '127.0.0.1:3000',
+            },
+            body: formData.value,
+        });
+
+        if (error) {
+            console.error('Error:', error);
+        } else {
+            console.log('Success:', data); // Используйте data, если оно возвращается
+        }
+    } catch (err) {
+        console.error('Request failed:', err);
+    }
+}
 </script>
 
 <style  scoped></style>
