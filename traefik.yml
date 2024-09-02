@@ -1,0 +1,60 @@
+http:
+  routers:
+    nuxt:
+      rule: "Host(`${HOST}`) || Host(`www.${HOST}`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+    nuxt-secure:
+      rule: "Host(`${HOST}`) || Host(`www.${HOST}`)"
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: myletsencrypt
+    
+    django:
+      rule: "Host(`${HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+    django-secure:
+      rule: "Host(`${HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: myletsencrypt
+
+    telegram-bot:
+      rule: "Host(`${HOST}`) && PathPrefix(`/webhook`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+    telegram-bot-secure:
+      rule: "Host(`${HOST}`) && PathPrefix(`/webhook`)"
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: myletsencrypt
+
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  myletsencrypt:
+    acme:
+      email: ${EMAIL}  # Ваш email
+      storage: acme.json
+      httpChallenge:
+        entryPoint: web
