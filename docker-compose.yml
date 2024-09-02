@@ -1,58 +1,63 @@
-
 version: '3'
 name: gkiverstroy
 
 services:
   reverse-proxy:
     image: traefik:v2.5
+    env_file:
+      - backend/.env
     command:
-      - "--api.insecure=true"  # Включите доступ к интерфейсу управления Traefik
-      - "--providers.docker=true"  # Используем Docker в качестве провайдера
-      - "--entrypoints.web.address=:80"  # HTTP
-      - "--entrypoints.websecure.address=:443"  # HTTPS (не будет использоваться в локальном тестировании)
-      - "--certificatesresolvers.myletsencrypt.acme.tlschallenge=true"  # Для Let’s Encrypt
-      - "--certificatesresolvers.myletsencrypt.acme.email=artemkfd@gmail.com"  # Ваша почта
-      - "--certificatesresolvers.myletsencrypt.acme.storage=/acme.json"  # Хранение сертификатов
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myletsencrypt.acme.httpChallenge=true"
+      - "--certificatesresolvers.myletsencrypt.acme.httpChallenge.entryPoint=${ENTRY_POINT}"
+      - "--certificatesresolvers.myletsencrypt.acme.email=${EMAIL}"  # Email for Let's Encrypt
+      - "--certificatesresolvers.myletsencrypt.acme.storage=/acme.json"
     ports:
-      - "80:80"  # Прокси для HTTP
-      - "443:443"  # Прокси для HTTPS (не будет использоваться)
+      - "80:80"
+      - "443:443"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"  # Доступ к Docker API
-      - "./acme.json:/acme.json"  # Для хранения сертификатов
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./acme.json:/acme.json"
     networks:
       - web
 
   nuxt:
+    env_file:
+        - backend/.env
+        - front/.env
+        - ./.env
     build:
       context: ./front
       dockerfile: Dockerfile-front
     labels:
-      - "traefik.enable=true"  # Использование Traefik для Nuxt
-      # Для тестирования на локальном компьютере, используйте Localtunnel
-      # - "traefik.http.routers.nuxt.rule=Host(`localhost`)"  # Локальный тест
-      # Перед отправкой на продакшн измените на:
-      - "traefik.http.routers.nuxt.rule=Host(`gkiverstroy.ru`)"  # Продакшн
-      - "traefik.http.routers.nuxt.entrypoints=web"  # Доступно только по HTTP
-      - "traefik.http.services.nuxt.loadbalancer.server.port=3000"  # Порт приложения Nuxt
-    restart: unless-stopped  # Перезапускать при сбоях
+      - "traefik.enable=true"
+      - "traefik.http.routers.nuxt.rule=Host(`${HOST}`)"  # Production
+      - "traefik.http.routers.nuxt.entrypoints=${ENTRY_POINT}"  # Use websecure for HTTPS
+      - "traefik.http.services.nuxt.loadbalancer.server.port=3000"
+    restart: unless-stopped
     networks:
       - web
 
   django:
+    env_file:
+      - backend/.env
     build:
       context: ./backend
       dockerfile: Dockerfile
     labels:
-      - "traefik.enable=true"  # Включаем Traefik
-      # Для тестирования на локальном компьютере, используйте Localtunnel
-      # - "traefik.http.routers.django.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"  # Локальный тест
-      # Перед отправкой на продакшн измените на:
-      - "traefik.http.routers.django.rule=Host(`gkiverstroy.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
-      - "traefik.http.routers.django.entrypoints=web"  # Доступно только по HTTP
-      - "traefik.http.services.django.loadbalancer.server.port=8000"  # Порт приложения Django
+      - "traefik.enable=true"
+      - "traefik.http.routers.django.rule=Host(`${HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      - "traefik.http.routers.django.entrypoints=${ENTRY_POINT}"  # Use websecure for HTTPS
+      - "traefik.http.services.django.loadbalancer.server.port=8000"
     environment:
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgres://gkiverstroy:gkiverstroy@db/db_gkiverstroy  # Измените на свои данные БД
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}  # Используйте переменные для DB
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}  # Будьте осторожны с DEBUG в продакшне!
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
     depends_on:
       - db
     restart: on-failure
@@ -60,19 +65,18 @@ services:
       - web
 
   telegram-bot:
+    env_file:
+      - backend/.env
     build:
       context: ./telegram_bot
-      dockerfile: Dockerfile-bot  # Используйте тот же Dockerfile для бота
+      dockerfile: Dockerfile-bot
       labels:
       - "traefik.enable=true"
-      # Для тестирования на локальном компьютере, используйте Localtunnel
-      # - "traefik.http.routers.telegram-bot.rule=Host(`tired-birds-juggle.loca.lt`) && PathPrefix(`/webhook`)"  # Локальный тест
-      # Перед отправкой на продакшн измените на:
-      - "traefik.http.routers.telegram-bot.rule=Host(`gkiverstroy.ru`) && PathPrefix(`/webhook`)"
-      - "traefik.http.services.telegram-bot.loadbalancer.server.port=5000"  # Порт, на котором работает Flask
+      - "traefik.http.routers.telegram-bot.rule=Host(`${HOST}`) && PathPrefix(`/webhook`)"
+      - "traefik.http.services.telegram-bot.loadbalancer.server.port=5000"
     environment:
-      - TELEGRAM_BOT_TOKEN=  # Измените на токен вашего бота
-      - TELEGRAM_CHAT_ID=  # Измените на ваш чат ID
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
     restart: unless-stopped
     depends_on:
       - django
@@ -81,12 +85,14 @@ services:
 
   db:
     image: postgres:16.4-alpine3.20
+    env_file:
+      - backend/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=db_gkiverstroy  # Измените на имя вашей БД
-      - POSTGRES_USER=gkiverstroy  # Измените на имя пользователя БД
-      - POSTGRES_PASSWORD=gkiverstroy  # Измените на пароль пользователя БД
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
       - LANG=en_US.UTF-8
       - LC_ALL=en_US.UTF-8
     ports:

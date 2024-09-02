@@ -41,6 +41,10 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
+HOST = env('HOST')
+
 
 
 # Application definition
@@ -162,8 +166,7 @@ STATIC_URL = '/static/'
 # Путь к директории, куда будут собираться статические файлы (например, в директории backend)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN'),
-TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
+
 
 
 LOGGING = {
