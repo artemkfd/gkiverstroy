@@ -12,9 +12,11 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myletsencrypt.acme.httpChallenge=true"
-      - "--certificatesresolvers.myletsencrypt.acme.httpChallenge.entryPoint=${ENTRY_POINT}"
-      - "--certificatesresolvers.myletsencrypt.acme.email=${EMAIL}"  # Email for Let's Encrypt
+      - "--certificatesresolvers.myletsencrypt.acme.httpChallenge.entryPoint=web"
+      - "--certificatesresolvers.myletsencrypt.acme.email=${EMAIL}"
       - "--certificatesresolvers.myletsencrypt.acme.storage=/acme.json"
+      - "--http.middlewares.redirect-to-https.redirectScheme.scheme=https"
+      - "--http.middlewares.redirect-to-https.redirectScheme.permanent=true"
     ports:
       - "80:80"
       - "443:443"
@@ -26,16 +28,19 @@ services:
 
   nuxt:
     env_file:
-        - backend/.env
-        - front/.env
-        - ./.env
+      - backend/.env
+      - front/.env
+      - ./.env
     build:
       context: ./front
       dockerfile: Dockerfile-front
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nuxt.rule=Host(`${HOST}`)"  # Production
-      - "traefik.http.routers.nuxt.entrypoints=${ENTRY_POINT}"  # Use websecure for HTTPS
+      - "traefik.http.routers.nuxt.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.nuxt.entrypoints=web"
+      - "traefik.http.routers.nuxt.middlewares=redirect-to-https"
+      - "traefik.http.routers.nuxt-secure.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.nuxt-secure.entrypoints=websecure"
       - "traefik.http.services.nuxt.loadbalancer.server.port=3000"
     restart: unless-stopped
     networks:
@@ -50,13 +55,16 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.django.rule=Host(`${HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
-      - "traefik.http.routers.django.entrypoints=${ENTRY_POINT}"  # Use websecure for HTTPS
+      - "traefik.http.routers.django.entrypoints=web"
+      - "traefik.http.routers.django.middlewares=redirect-to-https"
+      - "traefik.http.routers.django-secure.rule=Host(`${HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      - "traefik.http.routers.django-secure.entrypoints=websecure"
       - "traefik.http.services.django.loadbalancer.server.port=8000"
     environment:
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}  # Используйте переменные для DB
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
       - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=${DEBUG}  # Будьте осторожны с DEBUG в продакшне!
+      - DEBUG=${DEBUG}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
     depends_on:
       - db
@@ -71,9 +79,9 @@ services:
       context: ./telegram_bot
       dockerfile: Dockerfile-bot
       labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.telegram-bot.rule=Host(`${HOST}`) && PathPrefix(`/webhook`)"
-      - "traefik.http.services.telegram-bot.loadbalancer.server.port=5000"
+        - "traefik.enable=true"
+        - "traefik.http.routers.telegram-bot.rule=Host(`${HOST}`) && PathPrefix(`/webhook`)"
+        - "traefik.http.services.telegram-bot.loadbalancer.server.port=5000"
     environment:
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
