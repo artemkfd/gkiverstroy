@@ -96,8 +96,11 @@ const validateForm = () => {
 };
 
 async function postData() {
-    const host = 'https://gkiverstroy.ru'
-    const url = `${host}/api/clients`;
+    // const host = 'https://gkiverstroy.ru'
+    const baseUrl = useRuntimeConfig().public.baseUrl;
+    console.log('baseUrl :>> ', baseUrl);
+    const url = `${baseUrl}/api/clients`;
+    console.log('url :>> ', url);
     // Деструктурируем consent, оставляя остальные данные
     const { consent, ...remainingData } = formData.value;
 
@@ -109,7 +112,7 @@ async function postData() {
                 'Connection': 'keep-alive',
                 'Accept-Encoding': 'gzip, deflate, br',
                 'Accept': '*/*',
-                'Host': `${host}`,
+                'Host': `${baseUrl}`,
             },
             body: JSON.stringify(remainingData), // Преобразуем в JSON
         });

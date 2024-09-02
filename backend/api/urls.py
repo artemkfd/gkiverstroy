@@ -4,9 +4,10 @@ from django.shortcuts import get_object_or_404
 from .models import Client 
 from .schema import ClientIn, ClientOut
 from typing import List
-from backend.settings import TELEGRAM_CHAT_ID
+from backend.settings import TELEGRAM_CHAT_ID, TELEGRAM_BOT_TOKEN
 import requests
 import logging
+from backend import settings
 
 api = NinjaAPI()
 
@@ -29,8 +30,9 @@ def create_client(request, data: ClientIn):
     try:
         # Отправка сообщения в Telegram через веб-хук
         response = requests.post(
-            "https://gkiverstroy.ru/send_message",  # "https://gkiverstroy.ru/send_message" прямое обращение к вашему API
-            json={"chat_id": TELEGRAM_CHAT_ID, "message": message}
+            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+            json={"chat_id": TELEGRAM_CHAT_ID, "text": message},
+            headers={"Content-Type": "application/json"},
         )
         response.raise_for_status()  # Проверяем, был ли успешным запрос
         
