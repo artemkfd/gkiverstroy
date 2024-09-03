@@ -99,7 +99,7 @@ async function postData() {
     // const host = 'https://gkiverstroy.ru'
     const baseUrl = useRuntimeConfig().public.baseUrl;
     console.log('baseUrl :>> ', baseUrl);
-    const url = `${baseUrl}/api/clients`;
+    const url = `/api/clients`;
     console.log('url :>> ', url);
     // Деструктурируем consent, оставляя остальные данные
     const { consent, ...remainingData } = formData.value;
